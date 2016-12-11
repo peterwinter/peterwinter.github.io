@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>Peter B Winter PhD</title>
+
+    <!-- CSS -->
+    <link href="//fonts.googleapis.com/" rel="dns-prefetch">
+    <link href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Abril+Fatface|PT+Sans:400,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet">
+
+    <link rel="stylesheet" href="./theme/css/poole.css" />
+    <link rel="stylesheet" href="./theme/css/hyde.css" />
+    <link rel="stylesheet" href="./theme/css/syntax.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  </head>
+
+  <!-- Color Themes
+       theme-base-08 - red
+       theme-base-09 - orange
+       theme-base-0a - yellow
+       theme-base-0b - green
+       theme-base-0c - teal
+       theme-base-0d - blue
+       theme-base-0e - purple
+       theme-base-0f - brown
+     -->
+  <body class="theme-base-0a">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+
+      <h3>
+        <a href="/">
+          <img class="profile-picture" src="./images/avatar.jpg">
+          Peter B Winter PhD
+        </a>
+      </h3>
+      <p class="lead"></p>
+      <p class="lead">Data Scientist </p>
+      <p></p>
+    </div>
+
+    <ul class="sidebar-menu">
+
+          <li><a href="./pages/about.html">about</a></li>
+          <li><a href="./pages/projects.html">projects</a></li>
+          <li><a href="./pages/contact.html">contact</a></li>
+          <li><a href="./pages/friends.html">friends</a></li>
+          <!--  -->
+          <!-- <li class="active"><a href="./category/blog.html">blog</a></li> -->
+          <!--  -->
+    </ul>
+    <!-- <nav class="sidebar-nav"> -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="mailto:peterwinteriii@gmail.com"> -->
+    <!-- <i class="fa fa-envelope"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="https://twitter.com/pwinty"> -->
+    <!-- <i class="fa fa-twitter"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="https://br.linkedin.com/in/peter-winter"> -->
+    <!-- <i class="fa fa-linkedin"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="https://github.com/peterwinter"> -->
+    <!-- <i class="fa fa-github"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href=""> -->
+    <!-- <i class="fa fa-feed"></i> -->
+    <!-- </a> -->
+    <!-- </nav> -->
+  </div>
+</div>    <div class="content container">
+<div class="post">
+	<h1 class="post-title">Picking a Method</h1>
+	<span class="post-date">Sat 03 October 2015</span>
+	<p>Over the course of my research, I've collected thousands of time-series on the movement and behavior of worms under different conditions. To frame my research in a general sense: I want to know why some experimental conditions change the behavior of the worms and what those behavioral changes are. My research sits in a very specific niche, filled with details about worm biology, tracking objects under noisy conditions, and behavioral analysis. Despite this mess of details, I also have to solve a problem familiar to any data-scientist: the problem of Picking a Method.</p>
+<p>This problem has a thousand faces. Which clustering method should I use? What features are important in this time series? If you have data and you don't have a clear story, chances are that you are in some phase of Picking (and implementing) a Method. What makes this problem so hard is that every type of data has its own peculiarities that might invalidate the assumptions of a your favorite method. You are left trying to find an optimum in some cost function involving how effective a method is for your data (reproducible and accurate), how easy it is to implement, how quickly it runs, and how understandable the process is.</p>
+<p>Ideally, you want to pick a method that is powerful but quick to implement. However, there's no one best strategy for figuring this out. Some of the ways I've tried to Pick a Method have been asking an expert, finding papers that analyze similar data, reading a textbook chapter, Googling all combinations of keywords with which I could describe my data, searching for winning entries in related data analysis contests, and trying every related module in the Python Package Index... The list could continue.</p>
+<p>Although the current state of Picking a Method resembles a messy dark art, I don't think that this state will continue.</p>
+<p>I recently read a paper that compared tens of thousands of equally-spaced univariate time-series and several thousand techniques for analyzing them. The paper proposed several potential uses for this type of data, however, one feature in particular caught my eye. By sweeping a dataset with a comprehensive set of analysis methods, the results could be used to suggest a few key methods that might be worth pursuing. Although this type of analysis is not new, (researchers have long been using gold-standard test-sets by which to compare methods) its scale gives it a different quality.</p>
+<p>It seems like a new type of search is on the verge of becoming widely available. We are hitting a critical-mass in three factors: (1) the number of freely available online datasets (2) the amount of open-source methods that can be downloaded and easily implemented (3) and the speed of processing a large number of methods. Even so, it will be a lot of work for anyone to set up a user-friendly platform for evaluating which computational methods are usable for a given data set.</p>
+<p>Give it five to ten years, but Picking a Method will be trivial.</p>
+<p>(image credit: pppst.com)</p>
+
+	<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			var disqus_shortname = 'peterbwinter';
+			(function() {
+	 			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	 			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	 			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	 		})();
+		</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+  </body>
+</html>

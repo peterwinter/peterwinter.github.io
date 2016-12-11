@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <title>Peter B Winter PhD</title>
+
+    <!-- CSS -->
+    <link href="//fonts.googleapis.com/" rel="dns-prefetch">
+    <link href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Abril+Fatface|PT+Sans:400,400italic,700&amp;subset=latin,latin-ext" rel="stylesheet">
+
+    <link rel="stylesheet" href="./theme/css/poole.css" />
+    <link rel="stylesheet" href="./theme/css/hyde.css" />
+    <link rel="stylesheet" href="./theme/css/syntax.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  </head>
+
+  <!-- Color Themes
+       theme-base-08 - red
+       theme-base-09 - orange
+       theme-base-0a - yellow
+       theme-base-0b - green
+       theme-base-0c - teal
+       theme-base-0d - blue
+       theme-base-0e - purple
+       theme-base-0f - brown
+     -->
+  <body class="theme-base-0a">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+
+      <h3>
+        <a href="/">
+          <img class="profile-picture" src="./images/avatar.jpg">
+          Peter B Winter PhD
+        </a>
+      </h3>
+      <p class="lead"></p>
+      <p class="lead">Data Scientist </p>
+      <p></p>
+    </div>
+
+    <ul class="sidebar-menu">
+
+          <li><a href="./pages/about.html">about</a></li>
+          <li><a href="./pages/projects.html">projects</a></li>
+          <li><a href="./pages/contact.html">contact</a></li>
+          <li><a href="./pages/friends.html">friends</a></li>
+          <!--  -->
+          <!-- <li class="active"><a href="./category/blog.html">blog</a></li> -->
+          <!--  -->
+    </ul>
+    <!-- <nav class="sidebar-nav"> -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="mailto:peterwinteriii@gmail.com"> -->
+    <!-- <i class="fa fa-envelope"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="https://twitter.com/pwinty"> -->
+    <!-- <i class="fa fa-twitter"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="https://br.linkedin.com/in/peter-winter"> -->
+    <!-- <i class="fa fa-linkedin"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href="https://github.com/peterwinter"> -->
+    <!-- <i class="fa fa-github"></i> -->
+    <!-- </a> -->
+    <!--  -->
+    <!--  -->
+    <!-- <a class="sidebar-nav-item" href=""> -->
+    <!-- <i class="fa fa-feed"></i> -->
+    <!-- </a> -->
+    <!-- </nav> -->
+  </div>
+</div>    <div class="content container">
+<div class="post">
+	<h1 class="post-title">Troubleshooting the Pyenv/Homebrew Combination</h1>
+	<span class="post-date">Sat 03 October 2015</span>
+	<ol class="loweralpha simple" start="16">
+<li>Since I've been hearing such enthusiastic praise for &quot;pyenv&quot;:<a class="reference external" href="https://amaral.northwestern.edu/blog/pyenv-tutorial">https://amaral.northwestern.edu/blog/pyenv-tutorial</a>, I figured I would implement homebrew and pyenv to set up a pleasing environment for python development on my mac laptop (OS X 10.9.3).</li>
+</ol>
+<ol class="loweralpha simple" start="16">
+<li>Unfortunately, I immediately started breaking unwritten rules and had to uninstall everything and start over. (While I don't fully know if these rules are truly unwritten, I personally have been able to find them with google.) Here is a brief synopsis of what I have learned.</li>
+</ol>
+<p>h1. Overview of the Basics:</p>
+<ol class="loweralpha simple" start="16">
+<li><ol class="first arabic">
+<li>Homebrew is for installing and managing general system tools that are useful for many programs outside of python. (2)  Use pyenv with pip ONLY for installing and managing python.</li>
+</ol>
+</li>
+</ol>
+<ol class="loweralpha simple" start="16">
+<li>The secret to using these tools together is to keep their actions separate. _None of the python packages you install with 'brew install' _will ever be useful while inside your pyenv environments. Switch out of pyenv when you want to install system tools._ If you really want, you can probably come up with some workarounds to these suggestions, but in general, the point of pyenv environments is to keep them separate</li>
+</ol>
+<ol class="loweralpha simple" start="16">
+<li>In practice this is implemented because homebrew and pyenv install their goodies into two completely different directory structures.  Brew saves all it's goodies in:</li>
+</ol>
+<p>bc.  /usr/local/</p>
+<p>and pyenv, installs each python version (+ packages) in separate directories inside</p>
+<p>bc.  ~/.pyenv/</p>
+<p>pyenv works by switching the PYTHON_PATH so that it can point at it's own directory. All the python packages installed elsewhere in the filesystem will be ignored.</p>
+<p>h1. Setting Things up:</p>
+<ol class="loweralpha simple" start="16">
+<li>Ok, Joao already covered the basics on how to &quot;get pyenv up and running&quot;:<a class="reference external" href="https://amaral.northwestern.edu/blog/pyenv-tutorial">https://amaral.northwestern.edu/blog/pyenv-tutorial</a>, however, there are two important rules to follow when getting started. Initially, out of ignorance I ended up braking both these rules, and hope that writing them down might help my fellow wayfarers.</li>
+</ol>
+<p>h2. Rule 1: Only _brew install while pyenv global is set to _system_ and never brew while in a virtual environment.</p>
+<ol class="loweralpha simple" start="16">
+<li>I'm not sure why, but homebrew just won't install things properly if pyenv is engaged. And worse, brew won't tell you if the installation went wrong, the installed program will just fail at inconvenient times.</li>
+</ol>
+<ol class="loweralpha simple" start="16">
+<li>I'm looking at you, gcc.</li>
+</ol>
+<p>h3. Solution:</p>
+<p>bc. ~$ brew uninstall that_thing_you_installed_wrong
+~$ pyenv global system
+~$ brew install that_thing_you_installed_wrong</p>
+<ol class="loweralpha simple" start="16">
+<li>Make sure to open an new terminal after you've installed something important.</li>
+</ol>
+<ol class="loweralpha simple" start="16">
+<li>Use this trick every time you encounter a python package that requires heavy lifting (i.e. installing  non-python drivers). (1) Set pyenv to system, (2) install the drivers separately, (3) open a fresh terminal to get your configuration up to date, and (4) then  get back into your pyenv of choice for 'pip install'.</li>
+</ol>
+<p>h2. Rule 2: The pyenv directory must be before &quot;/usr/local/bin&quot; in your PATH</p>
+<ol class="loweralpha simple" start="16">
+<li>If this happens, you are probably using the wrong pip to install things. This is because your system looks through your PATH in order and uses the first pip it finds. Make sure that you are really using your .pyenv pip. If you are using the wrong pip, then you will most likely also have these two symptoms: (A) pip install without sudo has permissions problems and (B) the pip python package you just installed is not found by python.</li>
+</ol>
+<ol class="loweralpha simple" start="16">
+<li>To check if this is indeed your problem, check your path from the command line using:</li>
+</ol>
+<p>bc. ~$ echo $PATH</p>
+<p>h2.  Solution:</p>
+<p>p. Make sure these lines are in you .profile, .bash_profile, .bashrc or whatever your computer calls it.
+Make sure they are in this order, and that you don't have any other lines that insert /usr/local/bin first.</p>
+<p>bc. export PATH=/usr/local/bin:$PATH
+export PYENV_ROOT=&quot;$HOME/.pyenv&quot;
+export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;</p>
+<p>h1. Closing Remarks:</p>
+<ol class="loweralpha simple" start="16">
+<li>Following these two rules fixed everything that I needed to get up and running with numpy, scipy, matplotlib, pandas, and ipython notebook. Really, everything I need for 99% of my work.  I still haven't figured out how to get opencv functional inside my pyenvs, but hey,  that's for another day.</li>
+</ol>
+<p>special thanks to &quot;Joao&quot;:<a class="reference external" href="https://amaral.northwestern.edu/people/jmoreira/">https://amaral.northwestern.edu/people/jmoreira/</a> and &quot;Adam&quot;:<a class="reference external" href="https://amaral.northwestern.edu/people/pah/">https://amaral.northwestern.edu/people/pah/</a> for their help in getting my python functional.</p>
+
+	<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			var disqus_shortname = 'peterbwinter';
+			(function() {
+	 			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	 			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	 			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	 		})();
+		</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+  </body>
+</html>
