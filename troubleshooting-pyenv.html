@@ -93,70 +93,68 @@
 </div>    <div class="content container">
 <div class="post">
 	<h1 class="post-title">Troubleshooting the Pyenv/Homebrew Combination</h1>
-	<span class="post-date">Sat 03 October 2015</span>
-	<ol class="loweralpha simple" start="16">
-<li>Since I've been hearing such enthusiastic praise for &quot;pyenv&quot;:<a class="reference external" href="https://amaral.northwestern.edu/blog/pyenv-tutorial">https://amaral.northwestern.edu/blog/pyenv-tutorial</a>, I figured I would implement homebrew and pyenv to set up a pleasing environment for python development on my mac laptop (OS X 10.9.3).</li>
+	<span class="post-date">Fri 06 June 2014</span>
+	<p>Since I've been hearing such enthusiastic praise for <a class="reference external" href="https://amaral.northwestern.edu/blog/pyenv-tutorial">pyenv</a>, I figured I would implement homebrew and pyenv to set up a pleasing environment for python development on my mac laptop (OS X 10.9.3).</p>
+<p>Unfortunately, I immediately started breaking unwritten rules and had to uninstall everything and start over. (While I don't fully know if these rules are truly unwritten, I personally have been able to find them with google.) Here is a brief synopsis of what I have learned.</p>
+<div class="section" id="overview-of-the-basics">
+<h2>Overview of the Basics:</h2>
+<ol class="arabic simple">
+<li>Homebrew is for installing and managing general system tools that are useful for many programs outside of python.</li>
+<li>Use pyenv with pip ONLY for installing and managing python.</li>
 </ol>
-<ol class="loweralpha simple" start="16">
-<li>Unfortunately, I immediately started breaking unwritten rules and had to uninstall everything and start over. (While I don't fully know if these rules are truly unwritten, I personally have been able to find them with google.) Here is a brief synopsis of what I have learned.</li>
-</ol>
-<p>h1. Overview of the Basics:</p>
-<ol class="loweralpha simple" start="16">
-<li><ol class="first arabic">
-<li>Homebrew is for installing and managing general system tools that are useful for many programs outside of python. (2)  Use pyenv with pip ONLY for installing and managing python.</li>
-</ol>
-</li>
-</ol>
-<ol class="loweralpha simple" start="16">
-<li>The secret to using these tools together is to keep their actions separate. _None of the python packages you install with 'brew install' _will ever be useful while inside your pyenv environments. Switch out of pyenv when you want to install system tools._ If you really want, you can probably come up with some workarounds to these suggestions, but in general, the point of pyenv environments is to keep them separate</li>
-</ol>
-<ol class="loweralpha simple" start="16">
-<li>In practice this is implemented because homebrew and pyenv install their goodies into two completely different directory structures.  Brew saves all it's goodies in:</li>
-</ol>
-<p>bc.  /usr/local/</p>
+<p>The secret to using these tools together is to keep their actions separate.
+<span class="underline">None of the python packages you install with brew install will ever be useful while inside your pyenv environments. Switch out of pyenv when you want to install system tools.</span>
+If you really want, you can probably come up with some workarounds to these suggestions, but in general, the point of pyenv environments is to keep them separate</p>
+<p>In practice this is implemented because homebrew and pyenv install their goodies into two completely different directory structures.  Brew saves all it's goodies in:</p>
+<p><cite>/usr/local/</cite></p>
 <p>and pyenv, installs each python version (+ packages) in separate directories inside</p>
-<p>bc.  ~/.pyenv/</p>
+<p><cite>~/.pyenv/</cite></p>
 <p>pyenv works by switching the PYTHON_PATH so that it can point at it's own directory. All the python packages installed elsewhere in the filesystem will be ignored.</p>
-<p>h1. Setting Things up:</p>
-<ol class="loweralpha simple" start="16">
-<li>Ok, Joao already covered the basics on how to &quot;get pyenv up and running&quot;:<a class="reference external" href="https://amaral.northwestern.edu/blog/pyenv-tutorial">https://amaral.northwestern.edu/blog/pyenv-tutorial</a>, however, there are two important rules to follow when getting started. Initially, out of ignorance I ended up braking both these rules, and hope that writing them down might help my fellow wayfarers.</li>
+</div>
+<div class="section" id="setting-things-up">
+<h2>Setting Things up</h2>
+<p>Ok, Joao already covered the basics on how to &quot;<a class="reference external" href="https://amaral.northwestern.edu/blog/pyenv-tutorial">get pyenv up and running</a>&quot;, however, there are two important rules to follow when getting started. Initially, out of ignorance I ended up braking both these rules, and hope that writing them down might help my fellow wayfarers.</p>
+<div class="section" id="rule-1-only-brew-install-while-pyenv-global-is-set-to-system-and-never-brew-while-in-a-virtual-environment">
+<h3>Rule 1: Only <em>brew install</em> while pyenv global is set to <em>system</em> and never brew while in a virtual environment.</h3>
+<p>I'm not sure why, but homebrew just won't install things properly if pyenv is engaged. And worse, brew won't tell you if the installation went wrong, the installed program will just fail at inconvenient times.</p>
+<p>I'm looking at you, gcc.</p>
+</div>
+<div class="section" id="solution">
+<h3>Solution</h3>
+<p><cite>$ brew uninstall that_thing_you_installed_wrong</cite></p>
+<p><cite>$ pyenv global system</cite></p>
+<p><cite>$ brew install that_thing_you_installed_wrong</cite></p>
+<p>Make sure to open an new terminal after you've installed something important.</p>
+<p>Use this trick every time you encounter a python package that requires heavy lifting (i.e. installing  non-python drivers).</p>
+<ol class="arabic simple">
+<li>Set pyenv to system,</li>
+<li>install the drivers separately,</li>
+<li>open a fresh terminal to get your configuration up to date, and</li>
+<li>then  get back into your pyenv of choice for 'pip install'.</li>
 </ol>
-<p>h2. Rule 1: Only _brew install while pyenv global is set to _system_ and never brew while in a virtual environment.</p>
-<ol class="loweralpha simple" start="16">
-<li>I'm not sure why, but homebrew just won't install things properly if pyenv is engaged. And worse, brew won't tell you if the installation went wrong, the installed program will just fail at inconvenient times.</li>
-</ol>
-<ol class="loweralpha simple" start="16">
-<li>I'm looking at you, gcc.</li>
-</ol>
-<p>h3. Solution:</p>
-<p>bc. ~$ brew uninstall that_thing_you_installed_wrong
-~$ pyenv global system
-~$ brew install that_thing_you_installed_wrong</p>
-<ol class="loweralpha simple" start="16">
-<li>Make sure to open an new terminal after you've installed something important.</li>
-</ol>
-<ol class="loweralpha simple" start="16">
-<li>Use this trick every time you encounter a python package that requires heavy lifting (i.e. installing  non-python drivers). (1) Set pyenv to system, (2) install the drivers separately, (3) open a fresh terminal to get your configuration up to date, and (4) then  get back into your pyenv of choice for 'pip install'.</li>
-</ol>
-<p>h2. Rule 2: The pyenv directory must be before &quot;/usr/local/bin&quot; in your PATH</p>
-<ol class="loweralpha simple" start="16">
-<li>If this happens, you are probably using the wrong pip to install things. This is because your system looks through your PATH in order and uses the first pip it finds. Make sure that you are really using your .pyenv pip. If you are using the wrong pip, then you will most likely also have these two symptoms: (A) pip install without sudo has permissions problems and (B) the pip python package you just installed is not found by python.</li>
-</ol>
-<ol class="loweralpha simple" start="16">
-<li>To check if this is indeed your problem, check your path from the command line using:</li>
-</ol>
-<p>bc. ~$ echo $PATH</p>
-<p>h2.  Solution:</p>
-<p>p. Make sure these lines are in you .profile, .bash_profile, .bashrc or whatever your computer calls it.
+</div>
+<div class="section" id="rule-2-the-pyenv-directory-must-be-before-usr-local-bin-in-your-path">
+<h3>Rule 2: The pyenv directory must be before &quot;/usr/local/bin&quot; in your PATH</h3>
+<p>If this happens, you are probably using the wrong pip to install things. This is because your system looks through your PATH in order and uses the first pip it finds. Make sure that you are really using your .pyenv pip. If you are using the wrong pip, then you will most likely also have these two symptoms:
+(A) pip install without sudo has permissions problems and
+(B) the pip python package you just installed is not found by python.</p>
+<p>To check if this is indeed your problem, check your path from the command line using:</p>
+<p><cite>$ echo $PATH</cite></p>
+</div>
+<div class="section" id="id1">
+<h3>Solution:</h3>
+<p>Make sure these lines are in you .profile, .bash_profile, .bashrc or whatever your computer calls it.
 Make sure they are in this order, and that you don't have any other lines that insert /usr/local/bin first.</p>
-<p>bc. export PATH=/usr/local/bin:$PATH
-export PYENV_ROOT=&quot;$HOME/.pyenv&quot;
-export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;</p>
-<p>h1. Closing Remarks:</p>
-<ol class="loweralpha simple" start="16">
-<li>Following these two rules fixed everything that I needed to get up and running with numpy, scipy, matplotlib, pandas, and ipython notebook. Really, everything I need for 99% of my work.  I still haven't figured out how to get opencv functional inside my pyenvs, but hey,  that's for another day.</li>
-</ol>
-<p>special thanks to &quot;Joao&quot;:<a class="reference external" href="https://amaral.northwestern.edu/people/jmoreira/">https://amaral.northwestern.edu/people/jmoreira/</a> and &quot;Adam&quot;:<a class="reference external" href="https://amaral.northwestern.edu/people/pah/">https://amaral.northwestern.edu/people/pah/</a> for their help in getting my python functional.</p>
+<p><cite>export PATH=/usr/local/bin:$PATH</cite></p>
+<p><cite>export PYENV_ROOT=&quot;$HOME/.pyenv&quot;</cite></p>
+<p><cite>export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;</cite></p>
+</div>
+</div>
+<div class="section" id="closing-remarks">
+<h2>Closing Remarks</h2>
+<p>Following these two rules fixed everything that I needed to get up and running with numpy, scipy, matplotlib, pandas, and ipython notebook. Really, everything I need for 99% of my work.  I still haven't figured out how to get opencv functional inside my pyenvs, but hey,  that's for another day.</p>
+<p>special thanks to <a class="reference external" href="https://amaral.northwestern.edu/people/jmoreira/">Joao</a> and <a class="reference external" href="https://amaral.northwestern.edu/people/pah/">Adam</a> for their help in getting my python functional.</p>
+</div>
 
 	<div id="disqus_thread"></div>
 		<script type="text/javascript">
